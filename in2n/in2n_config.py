@@ -156,3 +156,46 @@ in2n_method_tiny = MethodSpecification(
     ),
     description="Instruct-NeRF2NeRF tiny method, does not use LPIPs, IP2P at half precision",
 )
+
+in2n_method_extra_tiny = MethodSpecification(
+    config=InstructNeRF2NeRFTrainerConfig(
+        method_name="in2n-extra-tiny",
+        steps_per_eval_batch=1000,
+        steps_per_eval_image=100,
+        steps_per_save=250,
+        max_num_iterations=30000,
+        save_only_latest_checkpoint=True,
+        mixed_precision=True,
+        pipeline=InstructNeRF2NeRFPipelineConfig(
+            datamanager=InstructNeRF2NeRFDataManagerConfig(
+                dataparser=NerfstudioDataParserConfig(),
+                train_num_rays_per_batch=3072,
+                eval_num_rays_per_batch=2048,
+                patch_size=1,
+            ),
+            model=InstructNeRF2NeRFModelConfig(
+                eval_num_rays_per_chunk=1 << 15,
+                use_lpips=True,
+                camera_optimizer=CameraOptimizerConfig(mode="SO3xR3"),
+            ),
+            ip2p_use_full_precision=False,
+        ),
+        optimizers={
+            "proposal_networks": {
+                "optimizer": AdamOptimizerConfig(lr=1e-2, eps=1e-15),
+                "scheduler": ExponentialDecaySchedulerConfig(lr_final=0.0001, max_steps=200000),
+            },
+            "fields": {
+                "optimizer": AdamOptimizerConfig(lr=1e-2, eps=1e-15),
+                "scheduler": ExponentialDecaySchedulerConfig(lr_final=0.0001, max_steps=200000),
+            },
+            "camera_opt": {
+                "optimizer": AdamOptimizerConfig(lr=6e-4, eps=1e-8, weight_decay=1e-2),
+                "scheduler": ExponentialDecaySchedulerConfig(lr_final=6e-6, max_steps=5000),
+            },
+        },
+        viewer=ViewerConfig(num_rays_per_chunk=1 << 15),
+        vis="viewer",
+    ),
+    description="Instruct-NeRF2NeRF extra tiny method, uses LPIPs, IP2P at half precision",
+)
