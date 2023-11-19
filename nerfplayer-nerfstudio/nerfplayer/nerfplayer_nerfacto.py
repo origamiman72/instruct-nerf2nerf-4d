@@ -24,7 +24,7 @@ from typing import Dict, List, Literal, Sequence, Type, cast
 
 import numpy as np
 import torch
-from torchmetrics import PeakSignalNoiseRatio
+from torchmetrics.image import PeakSignalNoiseRatio
 from torchmetrics.functional import structural_similarity_index_measure
 from torchmetrics.image.lpip import LearnedPerceptualImagePatchSimilarity
 

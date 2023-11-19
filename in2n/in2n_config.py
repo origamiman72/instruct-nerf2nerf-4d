@@ -19,11 +19,13 @@ Instruct-NeRF2NeRF configuration file.
 from nerfstudio.cameras.camera_optimizers import CameraOptimizerConfig
 from nerfstudio.configs.base_config import ViewerConfig
 from nerfstudio.data.dataparsers.nerfstudio_dataparser import NerfstudioDataParserConfig
+from nerfstudio.data.dataparsers.dycheck_dataparser import DycheckDataParserConfig
+from nerfstudio.data.datasets.depth_dataset import DepthDataset
 from nerfstudio.engine.optimizers import AdamOptimizerConfig
 from nerfstudio.engine.schedulers import ExponentialDecaySchedulerConfig
 from nerfstudio.plugins.types import MethodSpecification
 
-from in2n.in2n_datamanager import InstructNeRF2NeRFDataManagerConfig
+from in2n.in2n_datamanager import InstructNeRF2NeRFDataManagerConfig, InstructNeRF2NeRFDataManager
 from in2n.in2n import InstructNeRF2NeRFModelConfig
 from in2n.in2n_pipeline import InstructNeRF2NeRFPipelineConfig
 from in2n.in2n_trainer import InstructNeRF2NeRFTrainerConfig
@@ -170,7 +172,7 @@ in2n_method_extra_tiny = MethodSpecification(
             datamanager=InstructNeRF2NeRFDataManagerConfig(
                 dataparser=NerfstudioDataParserConfig(),
                 train_num_rays_per_batch=3072,
-                eval_num_rays_per_batch=2048,
+                eval_num_rays_per_batch=3072,
                 patch_size=1,
             ),
             model=InstructNeRF2NeRFModelConfig(

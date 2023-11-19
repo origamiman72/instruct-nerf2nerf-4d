@@ -33,7 +33,7 @@ static inline  __device__ at::Half atomicAdd(at::Half *address, at::Half val) {
     // requires CUDA >= 10 and ARCH >= 70
     // this is very slow compared to float or __half2, and never used.
     // The following line was commented in torch-ngp; uncomment it in case someone want to try fp16...
-    return atomicAdd(reinterpret_cast<__half*>(address), val);
+    // return atomicAdd(reinterpret_cast<__half*>(address), val);
 }
 
 

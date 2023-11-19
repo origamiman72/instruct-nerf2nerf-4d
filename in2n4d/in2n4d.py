@@ -28,13 +28,12 @@ from nerfstudio.model_components.losses import (
     MSELoss,
     interlevel_loss,
 )
-from nerfstudio.models.nerfacto import NerfactoModel, NerfactoModelConfig
 from nerfplayer.nerfplayer_nerfacto import NerfplayerNerfactoModelConfig, NerfplayerNerfactoModel
 
 @dataclass
-class InstructNeRF2NeRFModelConfig(NerfplayerNerfactoModelConfig):
+class InstructNeRF2NeRF4DModelConfig(NerfplayerNerfactoModelConfig):
     """Configuration for the InstructNeRF2NeRFModel."""
-    _target: Type = field(default_factory=lambda: InstructNeRF2NeRFModel)
+    _target: Type = field(default_factory=lambda: InstructNeRF2NeRF4DModel)
     use_lpips: bool = True
     """Whether to use LPIPS loss"""
     use_l1: bool = True
@@ -44,7 +43,7 @@ class InstructNeRF2NeRFModelConfig(NerfplayerNerfactoModelConfig):
     lpips_loss_mult: float = 1.0
     """Multiplier for LPIPS loss."""
 
-class InstructNeRF2NeRFModel(NerfplayerNerfactoModel):
+class InstructNeRF2NeRF4DModel(NerfplayerNerfactoModel):
     """Model for InstructNeRF2NeRF."""
 
     config: InstructNeRF2NeRFModelConfig

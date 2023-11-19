@@ -1,6 +1,6 @@
 [project]
-name = "in2n"
-version = "0.1.0"
+name = "in2n4d"
+version = "0.0.1"
 
 dependencies=[
     "nerfstudio>=0.3.0",
@@ -36,10 +36,13 @@ disable = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["in2n"]
+include = ["in2n", "in2n4d", "nerfplayer*"]
 
 [project.entry-points.'nerfstudio.method_configs']
 in2n = 'in2n.in2n_config:in2n_method'
 in2n_small = 'in2n.in2n_config:in2n_method_small'
 in2n_tiny = 'in2n.in2n_config:in2n_method_tiny'
 in2n_extra_tiny = 'in2n.in2n_config:in2n_method_extra_tiny'
+in2n4d_extra_tiny = 'in2n4d.in2n4d_config:in2n4d_method_extra_tiny'
+nerfplayer_nerfacto = 'nerfplayer_nerfacto.nerfplayer.nerfplayer_config:nerfplayer_nerfacto'
+nerfplayer_ngp = 'nerfplayer_nerfacto.nerfplayer.nerfplayer_config:nerfplayer_ngp'
